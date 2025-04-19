@@ -1,0 +1,228 @@
+def collect_expenses():
+    expenses = []
+
+    while True:
+        # Prompt for expense details
+        date = input("Enter the date of the expense (YYYY-MM-DD): ")
+        category = input("Enter the category of the expense (e.g., Food, Travel): ")
+        amount = float(input("Enter the amount spent: "))
+        description = input("Enter a brief description of the expense: ")
+
+        # Store expense in a dictionary
+        expense = {
+            'date': date,
+            'category': category,
+            'amount': amount,
+            'description': description
+        }
+2.  def view_expenses(expenses):
+    if not expenses:
+        print("No expenses to display.")
+        return
+
+    for i, expense in enumerate(expenses, start=1):
+        if all(key in expense and expense[key] for key in ['date', 'category', 'amount', 'description']):
+            print(f"Expense {i}:")
+            print(f"  Date: {expense['date']}")
+            print(f"  Category: {expense['category']}")
+            print(f"  Amount: {expense['amount']}")
+            print(f"  Description: {expense['description']}")
+            print()
+        else:
+            print(f"Expense {i} is incomplete and has been skipped.")
+
+# Example usage with collected expenses
+expenses_list = [
+    {'date': '2023-01-01', 'category': 'Food', 'amount': 50.0, 'description': 'Groceries'},
+    {'date': '2023-01-02', 'category': 'Travel', 'amount': 150.0},  # Incomplete
+    {'date': '2023-01-03', 'category': 'Entertainment', 'amount': 75.0, 'description': 'Movie tickets'}
+]
+
+view_expenses(expenses_list)
+
+3. def set_monthly_budget():
+    while True:
+        try:
+            budget = float(input("Enter the total amount you want to budget for the month: "))
+            if budget < 0:
+                print("Budget cannot be negative. Please enter a positive amount.")
+            else:
+                return budget
+        except ValueError:
+            print("Invalid input. Please enter a numeric value.")
+
+def calculate_total_expenses(expenses):
+    return sum(expense['amount'] for expense in expenses if 'amount' in expense)
+
+def check_budget(expenses, budget):
+    total_expenses = calculate_total_expenses(expenses)
+    remaining_budget = budget - total_expenses
+
+    print(f"Total expenses recorded so far: {total_expenses}")
+
+    if total_expenses > budget:
+        print("Warning: You have exceeded your budget!")
+    else:
+        print(f"You have {remaining_budget} left for the month.")
+
+# Example usage
+monthly_budget = set_monthly_budget()
+expenses_list = [
+    {'date': '2023-01-01', 'category': 'Food', 'amount': 50.0, 'description': 'Groceries'},
+    {'date': '2023-01-03', 'category': 'Entertainment', 'amount': 75.0, 'description': 'Movie tickets'}
+]
+
+check_budget(expenses_list, monthly_budget)
+
+4. import csv
+
+def save_expenses_to_csv(expenses, filename):
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        # Write the header row
+        writer.writerow(['date', 'category', 'amount', 'description'])
+        # Write the expense data rows
+        for expense in expenses:
+            writer.writerow([expense['date'], expense['category'], expense['amount'], expense['description']])
+
+def load_expenses_from_csv(filename):
+    expenses = []
+    try:
+        with open(filename, mode='r') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                expenses.append({
+                    'date': row['date'],
+                    'category': row['category'],
+                    'amount': float(row['amount']),
+                    'description': row['description']
+                })
+    except FileNotFoundError:
+        print(f"File '{filename}' not found. Starting with an empty list of expenses.")
+    return expenses
+
+# Example usage
+expenses_list =
+
+5.import csv
+
+def collect_expenses(expenses):
+    while True:
+        date = input("Enter the date of the expense (YYYY-MM-DD): ")
+        category = input("Enter the category of the expense (e.g., Food, Travel): ")
+        amount = float(input("Enter the amount spent: "))
+        description = input("Enter a brief description of the expense: ")
+
+        expense = {
+            'date': date,
+            'category': category,
+            'amount': amount,
+            'description': description
+        }
+        expenses.append(expense)
+
+        more = input("Do you want to add another expense? (yes/no): ").strip().lower()
+        if more != 'yes':
+            break
+
+def view_expenses(expenses):
+    if not expenses:
+        print("No expenses to display.")
+        return
+
+    for i, expense in enumerate(expenses, start=1):
+        if all(key in expense and expense[key] for key in ['date', 'category', 'amount', 'description']):
+            print(f"Expense {i}:")
+            print(f"  Date: {expense['date']}")
+            print(f"  Category: {expense['category']}")
+            print(f"  Amount: {expense['amount']}")
+            print(f"  Description: {expense['description']}")
+            print()
+        else:
+            print(f"Expense {i} is incomplete and has been skipped.")
+
+def set_monthly_budget():
+    while True:
+        try:
+            budget = float(input("Enter the total amount you want to budget for the month: "))
+            if budget < 0:
+                print("Budget cannot be negative. Please enter a positive amount.")
+            else:
+                return budget
+        except ValueError:
+            print("Invalid input. Please enter a numeric value.")
+
+def calculate_total_expenses(expenses):
+    return sum(expense['amount'] for expense in expenses if 'amount' in expense)
+
+def check_budget(expenses, budget):
+    total_expenses = calculate_total_expenses(expenses)
+    remaining_budget = budget - total_expenses
+
+    print(f"Total expenses recorded so far: {total_expenses}")
+
+    if total_expenses > budget:
+        print("Warning: You have exceeded your budget!")
+    else:
+        print(f"You have {remaining_budget} left for the month.")
+
+def save_expenses_to_csv(expenses, filename):
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['date', 'category', 'amount', 'description'])
+        for expense in expenses:
+            writer.writerow([expense['date'], expense['category'], expense['amount'], expense['description']])
+
+def load_expenses_from_csv(filename):
+    expenses = []
+    try:
+        with open(filename, mode='r') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                expenses.append({
+                    'date': row['date'],
+                    'category': row['category'],
+                    'amount': float(row['amount']),
+                    'description': row['description']
+                })
+    except FileNotFoundError:
+        print(f"File '{filename}' not found. Starting with an empty list of expenses.")
+    return expenses
+
+def display_menu():
+    print("Menu:")
+    print("1. Add expense")
+    print("2. View expenses")
+    print("3. Track budget")
+    print("4. Save expenses")
+    print("5. Exit")
+
+def main():
+    expenses = load_expenses_from_csv('expenses.csv')
+    budget = set_monthly_budget()
+
+    while True:
+        display_menu()
+        choice = input("Enter your choice (1-5): ").strip()
+
+        if choice == '1':
+            collect_expenses(expenses)
+        elif choice == '2':
+            view_expenses(expenses)
+        elif choice == '3':
+            check_budget(expenses, budget)
+        elif choice == '4':
+            save_expenses_to_csv(expenses, 'expenses.csv')
+            print("Expenses saved to 'expenses.csv'.")
+        elif choice == '5':
+            save_expenses_to_csv(expenses, 'expenses.csv')
+            print("Expenses saved to 'expenses.csv'. Exiting the program.")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 5.")
+
+if __name__ == "__main__":
+    main()
+
+
+
